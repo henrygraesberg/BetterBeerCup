@@ -27,7 +27,10 @@ Deno.serve((req) => {
 		const paginatedBeers = winningBeers.slice(start, end)
 
 		return new Response(JSON.stringify(paginatedBeers), {
-			headers: { "Content-Type": "application/json" },
+			headers: {
+				"Content-Type": "application/json",
+				"bbeer-pages": Math.ceil(winningBeers.length / perPage).toString(),
+				"bbeer-page": page.toString(),},
 		});
 	}
 
