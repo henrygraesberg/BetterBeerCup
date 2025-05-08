@@ -1,6 +1,6 @@
 import * as fs from 'node:fs'
 
-export const appendToFile = (object, filename) => {
+export const appendToFile= (object: any, filename: string) => {
   const json = JSON.stringify(object, null, 2)
   fs.writeFile(filename, json, (err) => {
     if (err) {
@@ -11,13 +11,9 @@ export const appendToFile = (object, filename) => {
   })
 }
 
-export const wipeAndWriteToFile = (object, filename) => {
+export const wipeAndWriteToFile = (object: any, filename: string) => {
   try {
-    fs.unlinkSync(filename, (err) => {
-      if (err) {
-        throw err
-      }
-    })
+    fs.unlinkSync(filename)
   }
   catch (err) {
     console.error('Error deleting file:', err)

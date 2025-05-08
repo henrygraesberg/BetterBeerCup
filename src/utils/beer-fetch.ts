@@ -1,6 +1,6 @@
 import { wipeAndWriteToFile } from './filehandling.ts'
 
-const fetchWinners = async (year) => {
+const fetchWinners = async (year: number) => {
   return await fetch("https://www.worldbeercup.org/wp-admin/admin-ajax.php", {
     "headers": {
       "accept": "*/*",
@@ -28,7 +28,7 @@ const fetchWinners = async (year) => {
 const getAllWinners = async () => {
   const competitionYears = [1996, 1998, 2000, 2002, 2004, 2006, 2008, 2010, 2012, 2014, 2016, 2018, 2022, 2023, 2024]
 
-  let winningBeers = []
+  let winningBeers: object[] = []
 
   for(let i = 0; i < competitionYears.length; i++) {
     const year = competitionYears[i]
@@ -37,7 +37,7 @@ const getAllWinners = async () => {
     winningBeers = [...winningBeers, ...beers]
   }
 
-  return await winningBeers
+  return winningBeers
 }
 
-wipeAndWriteToFile(await getAllWinners(), 'winning-beers.json')
+wipeAndWriteToFile(await getAllWinners(), '../../data/winning-beers.json')
