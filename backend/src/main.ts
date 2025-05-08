@@ -1,4 +1,4 @@
-import winningBeers from "../../data/winning-beers.json" with { type: "json" };
+import winningBeers from "../data/winning-beers.json" with { type: "json" };
 
 Deno.serve((req) => {
 	const url = new URL(req.url);
