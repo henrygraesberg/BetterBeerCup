@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "dev": "deno run -A --watch main.ts",
+    "fetch-beers": "deno run beer-fetch.mjs"
+  },
+  "imports": {
+    "@std/assert": "jsr:@std/assert@1"
+  }
+}

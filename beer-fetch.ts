@@ -1,4 +1,4 @@
-import fs from 'node:fs'
+import { wipeAndWriteToFile } from './filehandling.ts'
 
 const fetchWinners = async (year) => {
   return await fetch("https://www.worldbeercup.org/wp-admin/admin-ajax.php", {
@@ -25,19 +25,6 @@ const fetchWinners = async (year) => {
   })
 }
 
-const writeToFile = (array) => {
-  fs.unlinkSync('winning-beers.json', (err) => {console.error(err); return})
-
-  const json = JSON.stringify(array, null, 2)
-  fs.writeFile('winning-beers.json', json, (err) => {
-    if (err) {
-      console.error(err)
-      return
-    }
-    console.log('Data written to file')
-  })
-}
-
 const getAllWinners = async () => {
   const competitionYears = [1996, 1998, 2000, 2002, 2004, 2006, 2008, 2010, 2012, 2014, 2016, 2018, 2022, 2023, 2024]
 
@@ -53,4 +40,4 @@ const getAllWinners = async () => {
   return await winningBeers
 }
 
-writeToFile(await getAllWinners())
+wipeAndWriteToFile(await getAllWinners(), 'winning-beers.json')
