@@ -29,8 +29,10 @@ Deno.serve((req) => {
 		return new Response(JSON.stringify(paginatedBeers), {
 			headers: {
 				"Content-Type": "application/json",
+				"Access-Control-Allow-Origin": "http://localhost:3000",
 				"bbeer-pages": Math.ceil(winningBeers.length / perPage).toString(),
-				"bbeer-page": page.toString(),},
+				"bbeer-page": page.toString(),
+			},
 		});
 	}
 
