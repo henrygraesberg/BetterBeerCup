@@ -19,7 +19,7 @@ export const Beer: FC<BeerProps>  = (props) => {
         <div className="text-md font-bold">{props.beerName}</div>
         <div className="text-sm text-gray-500">by <span className="font-bold">{props.breweryName}</span></div>
       </div>
-      <div className="text-sm text-gray-500">{props.city}, {props.state}, {props.country}</div>
+      <div className="text-sm text-gray-500">{props.city}, {props.state}{props.state ?  "," : ""} {props.country}</div>
       <div className="text-sm text-gray-500">{props.category}</div>
       <div className="text-sm text-gray-500">{props.year} - {props.medal}</div>
     </div>
