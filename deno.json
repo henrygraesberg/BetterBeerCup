@@ -1,0 +1,7 @@
+{
+  "tasks": {
+    "dev:backend": "cd backend && deno run dev",
+    "dev:frontend": "cd frontend && pnpm run dev",
+    "dev": "deno run dev:backend & deno run dev:frontend"
+  }
+}
