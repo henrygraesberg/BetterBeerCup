@@ -7,13 +7,17 @@ import type { FC } from "react";
 export type BeerListProps = {
   page: number
   perPage: number
+  yearFilter?: number
+  medalFilter?: string
+  styleSearch?: string
+  nameSearch?: string
 }
 
-export const BeerList: FC<BeerListProps> = ({ page, perPage }) => {
+export const BeerList: FC<BeerListProps> = ({ page, perPage, yearFilter, medalFilter, styleSearch, nameSearch }) => {
 	const { isPending, error, data } = useQuery({
 		queryKey: ["beers"],
 		queryFn: async () => {
-			const res = await fetch(`http://localhost:8000/beers?page=${page}&perPage=${perPage}`)
+			const res = await fetch(`http://localhost:8000/beers?${page ? `page=${page}` : ""}${perPage ? `&perPage${perPage}` : ""}${yearFilter ?`&year=${yearFilter}` : ""}${medalFilter ? `&medal=${medalFilter}` : ""}${styleSearch ? `&style=${styleSearch}` : ""}${nameSearch ? `&search=${nameSearch}` : ""}`)
 
       //! Error: Headers are missing from response.headers
       res.headers.forEach((header, name) => console.log(name, header))
