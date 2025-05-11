@@ -50,6 +50,7 @@ Deno.serve((req) => {
 			headers: {
 				"Content-Type": "application/json",
 				"Access-Control-Allow-Origin": "http://localhost:3000",
+        "Access-Control-Expose-Headers": "x-bbeer-pages, x-bbeer-page",
 				"x-bbeer-pages": Math.ceil(filteredBeers.length / perPage).toString(),
 				"x-bbeer-page": page.toString(),
 			},

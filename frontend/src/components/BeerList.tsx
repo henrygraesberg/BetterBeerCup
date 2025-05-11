@@ -13,21 +13,23 @@ export type BeerListProps = {
   nameSearch?: string
 }
 
-export const BeerList: FC<BeerListProps> = ({ page, perPage, yearFilter, medalFilter, styleSearch, nameSearch }) => {
+const fetchParams = (host: string, props: BeerListProps) => {
+  const { page, perPage, yearFilter, medalFilter, styleSearch, nameSearch } = props
+  return `${host}?${page ? `page=${page}` : ""}${perPage ? `&perPage${perPage}` : ""}${yearFilter ?`&year=${yearFilter}` : ""}${medalFilter ? `&medal=${medalFilter}` : ""}${styleSearch ? `&style=${styleSearch}` : ""}${nameSearch ? `&search=${nameSearch}` : ""}`
+}
+
+export const BeerList: FC<BeerListProps> = (props) => {
+  const apiEndpoint = "http://localhost:8000/beers"
+
 	const { isPending, error, data } = useQuery({
 		queryKey: ["beers"],
 		queryFn: async () => {
-			const res = await fetch(`http://localhost:8000/beers?${page ? `page=${page}` : ""}${perPage ? `&perPage${perPage}` : ""}${yearFilter ?`&year=${yearFilter}` : ""}${medalFilter ? `&medal=${medalFilter}` : ""}${styleSearch ? `&style=${styleSearch}` : ""}${nameSearch ? `&search=${nameSearch}` : ""}`)
-
-      //! Error: Headers are missing from response.headers
-      res.headers.forEach((header, name) => console.log(name, header))
-      console.log(res.headers.get("x-bbeer-page"))
-      console.log(res.headers.get("x-bbeer-pages"))
+			const res = await fetch(fetchParams(apiEndpoint, props))
 
 			return {
         beers: await res.json() as BeerProps[],
-        page: res.headers.get("x-bbeer-page"),
-        lastPage: res.headers.get("x-bbeer-pages")
+        page: Number(res.headers.get("x-bbeer-page")),
+        lastPage: Number(res.headers.get("x-bbeer-pages"))
       }
 		}
 	})
@@ -42,23 +44,23 @@ export const BeerList: FC<BeerListProps> = ({ page, perPage, yearFilter, medalFi
 	return (
 		<div>
 			<h1>Beer list</h1>
-      <button type="button">
-        <Link to={`?page=${Number(data.page) - 1}&perPage=${perPage}`} disabled={Number(data.page) <= 1}>
+      <button type="button" onClick={() => setTimeout(() => window.location.reload(), 5)}>
+        <Link to="/" disabled={Number(data.page) <= 1} search={{ ...props, page: data.page - 1 }}>
           &lt;
         </Link>
       </button>
 
       {data.page} of {data.lastPage}
 
-      <button type="button">
-        <Link to={`?page=${Number(data.page) + 1}&perPage=${perPage}`} disabled={Number(data.page) >= Number(data.lastPage)}>
+      <button type="button" onClick={() => setTimeout(() => window.location.reload(), 5)}>
+        <Link to="/" disabled={Number(data.page) >= Number(data.lastPage)} search={{ ...props, page: data.page + 1 }}>
           &gt;
         </Link>
       </button>
 
       <ul>
         {data.beers.map((beer) => (
-          <li key={beer.beerName}>
+          <li key={beer.breweryName + beer.beerName}>
             <Beer {...beer} />
           </li>
         ))}
