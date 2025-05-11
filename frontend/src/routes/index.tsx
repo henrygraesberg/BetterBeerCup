@@ -6,8 +6,12 @@ export const Route = createFileRoute("/")({
 	component: App,
   validateSearch: (search: Record<string, unknown>) => {
     return {
-      page: Number(search?.page ?? 1),
-      perPage: Number(search?.perPage ?? 50)
+      page: search.page ? Number(search.page) : undefined,
+      perPage: search.perPage ? Number(search?.perPage ?? 50) : undefined,
+      yearFilter: search.yearFilter ? Number(search.yearFilter) : undefined,
+      medalFilter: search.medalFilter ? String(search.medalFilter) : undefined,
+      styleSearch: search.styleSearch ? String(search.styleSearch) : undefined,
+      nameSearch: search.nameSearch ? String(search.nameSearch) : undefined
     } as BeerListProps
   }
 });
