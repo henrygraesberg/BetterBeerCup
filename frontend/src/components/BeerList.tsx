@@ -1,6 +1,7 @@
-import { Link } from "@tanstack/react-router"
 import { useQuery } from "@tanstack/react-query"
 import { Beer } from "./Beer.tsx"
+import { PageNav } from "./Pagenav.tsx"
+import { Searchbar } from "./Searchbar.tsx"
 import type { BeerProps } from "./Beer.tsx"
 import type { FC } from "react";
 
@@ -43,20 +44,26 @@ export const BeerList: FC<BeerListProps> = (props) => {
 
 	return (
 		<div>
-			<h1>Beer list</h1>
-      <button type="button" onClick={() => setTimeout(() => window.location.reload(), 5)}>
-        <Link to="/" disabled={Number(data.page) <= 1} search={{ ...props, page: data.page - 1 }}>
-          &lt;
-        </Link>
-      </button>
+      <PageNav
+        searchParams={props}
+        page={data.page}
+        lastPage={data.lastPage}
+      />
 
-      {data.page} of {data.lastPage}
-
-      <button type="button" onClick={() => setTimeout(() => window.location.reload(), 5)}>
-        <Link to="/" disabled={Number(data.page) >= Number(data.lastPage)} search={{ ...props, page: data.page + 1 }}>
-          &gt;
-        </Link>
-      </button>
+      <Searchbar
+        placeholder="Search by name"
+        value={props.nameSearch}
+        onChange={(_value) => {
+          setTimeout(() => window.location.reload(), 5)
+        }}
+      />
+      <Searchbar
+        placeholder="Search by style"
+        value={props.styleSearch}
+        onChange={(_value) => {
+          setTimeout(() => window.location.reload(), 5)
+        }}
+      />
 
       <ul>
         {data.beers.map((beer) => (
