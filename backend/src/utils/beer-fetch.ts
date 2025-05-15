@@ -1,12 +1,13 @@
 import { wipeAndWriteToFile } from './filehandling.ts'
 
 const fetchWinners = async (year: number) => {
-  return await fetch(
   /*
     Replace with fetch from https://www.worldbeercup.org/winners/award-winners/
     HTTP request is called "admin.ajax.php"
     Replace body with "body": `_year=${year}&_fulltext=&action=search-winners`
-  */)
+    Create empty "data" dir in backend root (../../data)
+    Will sput out error because file does not exist yet when trying to dele, but will create file and write winners to it
+  */
 }
 
 const getAllWinners = async () => {
