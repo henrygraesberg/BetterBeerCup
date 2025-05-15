@@ -1,7 +1,8 @@
 import { wipeAndWriteToFile } from './filehandling.ts'
 
 const fetchWinners = async (year: number) => {
-  return await fetch(/*
+  return await fetch(
+  /*
     Replace with fetch from https://www.worldbeercup.org/winners/award-winners/
     HTTP request is called "admin.ajax.php"
     Replace body with "body": `_year=${year}&_fulltext=&action=search-winners`
@@ -9,7 +10,7 @@ const fetchWinners = async (year: number) => {
 }
 
 const getAllWinners = async () => {
-  const competitionYears = [1996, 1998, 2000, 2002, 2004, 2006, 2008, 2010, 2012, 2014, 2016, 2018, 2022, 2023, 2024, 2025]
+  const competitionYears = [1996, 1998, 2000, 2002, 2004, 2006, 2008, 2010, 2012, 2014, 2016, 2018, 2022, 2023, 2024, 2025].reverse()
 
   let winningBeers: object[] = []
 
