@@ -4,5 +4,6 @@
     "dev:frontend": "cd frontend && pnpm run dev",
     "dev": "deno run dev:backend & deno run dev:frontend"
     "install:parallel": "cd backend && deno install & cd frontend && pnpm install",
+    "fetch-beer": "cd backend/src/utils && deno run beer-fetch.ts",
   }
 }
